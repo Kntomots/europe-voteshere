@@ -8,6 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <script src="https://cdn.jsdelivr.net/npm/three@0.126.1/build/three.min.js"></script>
+    <script src= 
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> 
+        </script> 
+        <script src= 
+    "https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"> 
+        </script> 
+    <script src="chart.js"></script>
+
 
 
 
@@ -18,33 +26,51 @@
     <div class="wrapper">
         <!-- Navigation Menu -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Votesphere</a>
+            <a class="navbar-brand" href="index.html">Votesphere</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-            <div class="container-fluid justify-content-center">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <!-- Navbar content here -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="map.html">Map</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
+                  
                 </ul>
             </div>
         </nav>	
         <!-- Main Content -->
-        <div class="main-content">
-            <h1>Welcome to Our Website!</h1>
-            <p>This is a simple Bootstrap 5 website template with a navbar and a footer.</p>
-            <div w3-include-html="earth.html"></div>
+        <div class="main-content float-container">
+            
+                <div class=" Welcome-text float-child">
+                    <h1>Welcome to Votesphere!</h1>
+                    <p style="text-indent:2em">Your premier destination for comprehensive and up-to-date election results
+                         from across Europe. Dive into detailed, interactive data visualizations and 
+                         explore the latest election outcomes from each European country. Whether you're
+                          a political analyst, a student of political science, or just curious about European 
+                          electoral trends, our site provides you with reliable, real-time information to keep 
+                          you informed about the shifting political landscape in Europe. Explore now to discover 
+                          the results and understand the dynamics shaping the future of European governance..</p>
+                          <canvas id="programmingLanguagesPieChart" ></canvas> 
+
+                          <a  href="map.html" class="btn btn-primary" style="margin-top: 10%;">Show Elections</a>
+                </div >
+
+           
+
+            <iframe class="iframe-container float-child"   src="earth.html" ></iframe>
+            
+
+            
+            
+               
+
+           
+
 
         </div>
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hover to Get Element ID</title>
+<style>
+    .tooltip {
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid #d3d3d3;
+        padding: 5px;
+        display: none; /* Start hidden */
+        z-index: 1000;
+        pointer-events: none; /* Prevent the tooltip from blocking your SVG */
+    }
+    svg {
+        width: 300px;
+        height: 300px;
+    }
+</style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <path id="path1" name="paok" d="M10 10 H 190 V 90 H 10 Z"></path>
+        <path id="path2" d="M10 100 H 190 V 190 H 10 Z"></path>
+    </svg>
+    <div id="tooltip" class="tooltip"></div>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tooltip = document.getElementById('tooltip');
+        document.querySelectorAll('path').forEach(path => {
+            path.addEventListener('mouseenter', function(event) {
+                const name = event.target.getAttribute('name');
+                tooltip.textContent = name; // Set the tooltip content to the path name
+                tooltip.style.display = 'block'; // Make the tooltip visible
+            });
+            path.addEventListener('mousemove', function(event) {
+                tooltip.style.left = event.pageX + 10 + 'px'; // Position the tooltip near the mouse
+                tooltip.style.top = event.pageY + 10 + 'px';
+            });
+            path.addEventListener('mouseleave', function() {
+                tooltip.style.display = 'none'; // Hide the tooltip
+            });
+        });
+    });
+</script>
+</html>

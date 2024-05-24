@@ -1,0 +1,82 @@
+
+.Svg{
+    top: 0%;
+    left: 0%;
+    position: relative;  
+    width:80%;
+    height: 800px;
+    
+}
+body, html {
+    
+  
+    background-image:url(background_image.webp) ;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+
+
+}
+.main-content {
+    flex: 1 0 auto;
+    padding: 20px;
+    
+
+}
+.footer {
+    flex-shrink: 0;
+}
+.wrapper {
+   display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+}
+.nav ul {
+    list-style: none;
+    text-align: center;
+ }
+ 
+ .nav ul li {
+    display: inline-block;
+ }
+
+.navbar-brand {
+    padding: 10px;
+}
+.float-container {
+    padding: 10px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+
+} 
+svg path:hover{
+    fill: tomato;
+    transition: 0.6;
+    cursor: pointer;
+}
+.country-name {
+    text-align: center;
+    font-size:xx-large;
+    font-weight: 900;
+}
+#test1{
+    background-color: rgba(255, 255, 255, 0.863);
+    width: 100%;
+    display:none;
+}
+
+
+@media (max-width: 900px) {
+    .float-child {
+        width: 100%;
+        padding: 0px;
+    
+    } 
+}

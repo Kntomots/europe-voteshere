@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Votesphere</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jqvmap.min.css">
+</head>
+<body>
+<div alighn="center">
+<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+<canvas id="myChart1" style="width:100%;max-width:700px"></canvas>
+</div>
+
+    <script >
+$(document).ready(function () {
+
+var arrOfpercentages =[]
+const queryString = window.location.search;
+const a = (window.location.href)
+console.log(document.querySelector("a[href='#new-intervention']"));
+
+const urlParams = new URLSearchParams(queryString);
+const csvFileName = urlParams.get('param');
+
+
+ const political_parties = {
+    "ΣΥΡΙΖΑ": "#FF6666", // Light Red
+    "Νέα Δημοκρατία": "#6666FF", // Light Blue
+    "Λαϊκός Σύνδεσμος - Χρυσή Αυγή": "#FFDD77", // Light Gold
+    "Κίνημα Αλλαγής": "#33CC33", // Light Green
+    "Κ.Κ.Ε.": "#CC3333", // Light Dark Red
+    "Ένωση Κεντρώων": "#FFB266", // Light Orange
+    "Ο.Κ.Δ.Ε.": "#CC66CC", // Light Purple
+    "ΑΝΤ.ΑΡ.ΣΥ.Α.": "#CC9999", // Light Brown
+    "Ελλήνων Συνέλευσις": "#66FFFF", // Light Cyan
+    "ΕΕΚ Τροτσκιστές - Εργ.Επ.Κόμμα": "#FF66FF", // Light Magenta
+    "Ελληνική Λύση - Κ. Βελόπουλος": "#66FF66", // Light Lime
+    "Κ.Κ.Ε. (μ-λ)": "#CC6666", // Light Maroon
+    "Μ-Λ Κ.Κ.Ε.": "#CCCC66", // Light Olive
+    "Ε.ΠΑ.Μ - Α.Κ.Κ.ΕΛ": "#FFCCCC", // Light Pink
+    "Λαϊκή Ενότητα": "#66CCCC", // Light Teal
+    "ΜέΡΑ25": "#6666CC", // Light Navy
+    "Δημιουργία ξανά - Θ. Τζήμερος": "#CCCCCC", // Light Gray
+    "Πλεύση Ελευθερίας - Ζωή Κωνστ.": "#666666", // Light Black
+    "Ανεξάρτητοι Υποψήφιοι": "#D9D9D9" // Light Silver
+};
+
+
+// Load the CSV file and display the data in the table
+
+    $.ajax({
+        
+        url: csvFileName,
+        dataType: 'text',
+        success: function (data) {
+            const employee_data = data.split(/\r?\n|\r/);
+            let table_data = '<table id="customers" border="10" cellpadding="10">';
+            var valid_votes = null;
+
+
+            for (let count = 0; count < 1; count++) {
+                const cell_data = employee_data[count].split(',');
+                const cell_data_last_row= employee_data[employee_data.length-2].split(',');
+                 for (let cell_count = 0; cell_count < cell_data.length; cell_count++) {
+                    if(cell_data[cell_count]==="ΕΓΚΥΡΑ"){
+                        console.log("mpikaaa");
+
+                        //console.log((cell_data_last_row[cell_count].replace(/\./g, "")));
+
+                         valid_votes = parseInt( cell_data_last_row[cell_count]);
+                    }
+             
+                    //console.log("bbb");
+                    if(political_parties.hasOwnProperty(cell_data[cell_count]) ){
+                        table_data += '<tr>';
+                           // console.log(parseInt( cell_data_last_row[cell_count].replace(/\./g, ""),10) + "/" + valid_votes);
+                    table_data += '<th bgcolor='+ political_parties[cell_data[cell_count]] + '>' + cell_data[cell_count] + '</th>';
+                    table_data += '<th>' + (parseFloat( cell_data_last_row[cell_count],10)/valid_votes*100).toFixed(2) +'%'+ '</th>';
+                    table_data += '</tr>';
+                    arrOfpercentages[cell_data[cell_count]] = (parseFloat( cell_data_last_row[cell_count],10)/valid_votes*100).toFixed(2)
+                    }else{
+                        table_data += '<tr>';
+                    table_data += '<td>' + cell_data[cell_count] + '</td>';
+                    table_data += '<td>' + cell_data_last_row[cell_count] + '</td>';
+
+                    table_data += '</tr>';
+                    }
+                
+
+
+
+                }
+
+
+            }
+            table_data += '</table>';
+
+            // Display the table data in the "csv-table" div
+          $('#csv-table').html(table_data);
+          const sortedEntries = Object.entries(arrOfpercentages)
+                                        .sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]));
+            const sortedKeys = sortedEntries.map(entry => entry[0]);
+            const sortedValues = sortedEntries.map(entry => parseFloat(entry[1]));
+
+            
+            
+            const sortedColors = []
+            
+            for(i of (sortedKeys)){
+                    sortedColors.push(political_parties[i])
+            }
+            new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: sortedKeys,
+                        datasets: [{
+                        backgroundColor: sortedColors,
+                        data: sortedValues
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        title: {
+                        display: true,
+                        text: ""
+                        }
+                    }
+                });
+
+                new Chart("myChart1", {
+                            type: "pie",
+                            data: {
+                                labels: sortedKeys,
+                                datasets: [{
+                                backgroundColor: sortedColors,
+                                data: sortedValues
+                                }]
+                            },
+                            options: {
+                                
+                                title: {
+                                display: true,
+                                text: ""
+                                }
+                            }
+                    });    
+        
+        }
+
+    });
+});
+
+
+
+
+
+
+    </script>
+</body>
+</html>

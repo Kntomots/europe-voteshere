@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website Title</title>
     <style>
-        body, html { height: 100%; margin: 0; overflow: hidden; }
-        #earthCanvas { display: block; width: 100%; height: 100%; }
+        body, html { margin: 0;  padding: 0; height: 100%; overflow: hidden; }
+        #earthCanvas { display: block;  }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/three@0.126.1/build/three.min.js"></script>
+    
 </head>
 <body>
     <div id="content">
@@ -16,10 +17,13 @@
     </div>
     <script>
         let scene, camera, renderer, earthMesh;
+        let mouseDown = false;
+        let mouseX = 0;
+        let mouseY = 0;
 
         function init() {
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 10000);
             
             // Set up renderer with transparency
             renderer = new THREE.WebGLRenderer({antialias: true, alpha: true}); // Enable alpha for transparency
@@ -28,19 +32,57 @@
             document.body.appendChild(renderer.domElement);
 
             // Earth geometry and texture
-            const geometry = new THREE.SphereGeometry(1, 32, 32);
-            const texture = new THREE.TextureLoader().load('2k_earth_daymap.jpg');  // Update with your texture path
+            const geometry = new THREE.SphereGeometry(1, 50, 32);
+            const texture = new THREE.TextureLoader().load('peakpx.jpg');  // Update with your texture path
             const material = new THREE.MeshBasicMaterial({ map: texture });
             earthMesh = new THREE.Mesh(geometry, material);
             scene.add(earthMesh);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(1, 1);
 
-            camera.position.z = 5;
+
+            camera.position.z = 4;
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('mousedown', onMouseDown, false);
+            document.addEventListener('mouseup', onMouseUp, false);
+            document.addEventListener('mousemove', onMouseMove, false);
         }
 
         function animate() {
             requestAnimationFrame(animate);
             earthMesh.rotation.y += 0.001;  // This controls the rotation speed
             renderer.render(scene, camera);
+        }
+        function onMouseDown(event) {
+            mouseDown = true;
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        }
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            if (!mouseDown) {
+                return;
+            }
+            let deltaX = event.clientX - mouseX;
+            let deltaY = event.clientY - mouseY;
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            rotateSphere(deltaX, deltaY);
+        }
+
+        function onMouseUp(event) {
+            mouseDown = false;
+        }
+
+        function rotateSphere(deltaX, deltaY) {
+            earthMesh.rotation.y += deltaX * 0.005;
+            earthMesh.rotation.x += deltaY * 0.005;
         }
 
         init();
