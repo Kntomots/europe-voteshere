@@ -141,10 +141,11 @@
                 </circle>
                 <circle cx="521" cy="266.6" id="2">
                 </circle>
+                
 
             </svg>
             </svg>
-
+            
             <div class=" float-child">
                 <div id="data-container"></div>
 
@@ -162,8 +163,12 @@
            
        
             </div>
-            <div id="test1">
+            <div id="test1" class="float-container">
                 <canvas id="chartId" aria-label="chart" height="350" width="580"></canvas>
+                <div class="float-child">
+                    <canvas id="chartId1" aria-label="chart" height="350" width="580"></canvas>
+
+                </div>
         
             </div>
 
@@ -183,86 +188,113 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
         function getRandomColorCodes(numColors) {
-            // Function to generate a single random color code
             function getRandomColor() {
-               const letters = '0123456789ABCDEF';
-               let color = '#';
-               for (let i = 0; i < 6; i++) {
-                  color += letters[Math.floor(Math.random() * 16)];
-               }
-               return color;
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
             }
-   
-            // Array to hold the color codes
             const colorCodes = [];
-            
-            // Generate the specified number of color codes
             for (let i = 0; i < numColors; i++) {
-               colorCodes.push(getRandomColor());
+                colorCodes.push(getRandomColor());
             }
-            
             return colorCodes;
-         }
-   
-         var percentages = [];
-         var parties = [];
-   
-         document.addEventListener('DOMContentLoaded', function() {
+        }
 
-           
+        var percentages = [];
+        var parties = [];
+        var seats = [{party:"",seats:""}];
 
-            document.getElementById('BE').addEventListener('click',function(event){
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('BE').addEventListener('click', function(event) {
                 event.stopPropagation(); 
                 document.getElementById('test1').style.display = "flex";
-               
+
+                // Clear the previous table if it exists
+                const existingTable = document.querySelector("#test1 table");
+                if (existingTable) {
+                    existingTable.remove();
+                }
+
+                // Create a new table element
+                const table = document.createElement("table");
+
                 fetch('/api/collection')
-               .then(response => response.json())
-               .then(data => {
-                  console.log('Data from MongoDB:', data);
-                  // Process and display the data as needed
-                  data.forEach(d => {
-                     for (let value in d) {
-                        if (value == 'percentage')
-                           percentages.push(parseFloat(d[value])/10);
-                        else if (value == 'party')
-                           parties.push(d[value]);
-                     }
-                  });
-   
-                  console.log(percentages);
-                  console.log(parties);
-   
-                  // Generate random colors after data is ready
-                  var randomColors = getRandomColorCodes(parties.length);
-                  console.log(randomColors);
-   
-                  // Initialize the chart after the data is ready
-                  var chrt = document.getElementById("chartId").getContext("2d");
-                  var chartId = new Chart(chrt, {
-                     type: 'bar',
-                     data: {
-                        labels: parties,
-                        datasets: [{
-                           data: percentages,
-                           backgroundColor: randomColors,
-                        }],
-                     },
-                     options: {
-                        responsive: false,
-                     },
-                  });
-               })
-               .catch(error => console.error('Error fetching data:', error));
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data from MongoDB:', data);
+                    // Process and display the data as needed
+                    data.forEach(d => {
+                        percentages.push(parseFloat(d['percentage']) / 10);
+                        parties.push(d['party']);
+                        if (d['seats'] != null) {
+                            var row = document.createElement("tr");
+                            
+
+                            console.log(d)
+                            const cell_party = document.createElement("td");
+                            cell_party.textContent = d['party'];
+                            const cell_seats = document.createElement("td");
+                            cell_seats.textContent = d['seats'];
+                            row.appendChild(cell_party);
+                            row.appendChild(cell_seats);
+                            table.appendChild(row);
+                        }
+                        
+                    });
+                    console.log(table);
+
+                    // Generate random colors after data is ready
+                    var randomColors = getRandomColorCodes(parties.length);
+                    console.log(randomColors);
+
+                    // Initialize the chart after the data is ready
+                    var chrt = document.getElementById("chartId").getContext("2d");
+                    var chartId = new Chart(chrt, {
+                        type: 'line',
+                        data: {
+                            labels: parties,
+                            datasets: [{
+                                label: 'Line Graph Belgium',
+                                data: percentages,
+                                backgroundColor: randomColors,
+                            }],
+                        },
+                        options: {
+                            responsive: false,
+                        },
+                    });
+                    var chrt1 = document.getElementById("chartId1").getContext("2d");
+
+                    var chartId1 = new Chart(chrt1, {
+                        type: 'bar',
+                        data: {
+                            labels: parties,
+                            datasets: [{
+                                label: 'Bar Graph Belgium',
+                                data: percentages,
+                                backgroundColor: randomColors,
+                            }],
+                        },
+                        options: {
+                            responsive: false,
+                        },
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+                // Append the new table to the container
+                document.getElementById('test1').appendChild(table);
             });
 
-        document.addEventListener('click', function(event) {
-        if (event.target.id !== 'BE') {
-            document.getElementById('test1').style.display = "none";
-        }
-    });
-            
-         });
-       
+            document.addEventListener('click', function(event) {
+                if (event.target.id !== 'BE') {
+                    document.getElementById('test1').style.display = "none";
+                }
+            });
+        });
     </script>
 </body>
 </html>
