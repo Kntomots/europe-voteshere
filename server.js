@@ -5,13 +5,16 @@ const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3001;
 
-const mongoUrl = 'mongodb+srv://kostas:ntomotsidis@cluster0.cojhzrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your MongoDB connection string
-const dbName = 'BelgiumMongoDbResults'; // Replace with your database name
+const mongoUrl = 'mongodb+srv://kostas:ntomotsidis@cluster0.cojhzrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; 
+const dbName = 'BelgiumMongoDbResults'
+const dbName2= 'Questionaire'
 let db;
+let db2;
 
 MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
         db = client.db(dbName);
+        db2 = client.db(dbName2) 
         console.log('Connected to Database');
     })
     .catch(error => console.error(error));
@@ -27,7 +30,25 @@ app.get('/', (req, res) => {
 // Define a route to retrieve data from a collection
 app.get('/api/collection', async (req, res) => {
     try {
-        const collection = db.collection('BelgiumVotes'); // Replace with your collection name
+        const collection = db.collection('BelgiumVotes'); 
+        const data = await collection.find().toArray();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+app.get('/api/questions', async (req, res) => {
+    try {
+        const collection = db2.collection('Questions'); 
+        const data = await collection.find().toArray();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+app.get('/api/parties', async (req, res) => {
+    try {
+        const collection = db2.collection('parties'); 
         const data = await collection.find().toArray();
         res.json(data);
     } catch (error) {

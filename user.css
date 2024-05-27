@@ -1,0 +1,32 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.card {
+    flex: 1 1 calc(33.333% - 2rem); /* Adjust width and margin */
+    box-sizing: border-box; /* Ensures padding and margin are included in the width */
+    margin: 1rem; /* Margin between cards */
+}
+.submit-btn{
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+@media(max-width:700px) {
+    
+
+.card-container {
+    display: inline;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+.card {
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+}
