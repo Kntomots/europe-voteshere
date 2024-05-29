@@ -4,41 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voteshere</title>
-    <!-- Link to Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="greece.css">
     <link rel="stylesheet" href="map.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">4</script>
-
-    <!-- Custom CSS to keep footer at the bottom -->
 
 </head>
 <body>
     <div class="wrapper">
-        <!-- Navigation Menu -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Votesphere</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="index.html">Votesphere</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
+            </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <!-- Navbar content here -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link " aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="map.html">Map</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Maps
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="map.html">Europe Map</a>
+                            <a class="dropdown-item" href="greece.html">Greece Map</a>
+                        </div>  
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="user.html">Questions</a>
                     </li>
-               
                 </ul>
             </div>
-        </nav>	
+        </nav>
         <!-- Main Content -->
         
         
@@ -187,7 +186,10 @@
                             </g>
                    
                             <g class="poly-group  ">
-                                <a href="display-csv.html?param=Csv_Output/A_ANAT_ATTIKHS.csv,Csv_Output/A-ATHINON.csv,Csv_Output/A-PEIRAIOS.csv,Csv_Output/B-DYTIKHS-ATTIKHS.csv,Csv_Output/B-PEIRAIOS.csv,Csv_Output/B1-BOREIOY-TOMEA-ATHINON.csv,Csv_Output/B2-DYTIKOY-TOMEA-ATHINON.csv,Csv_Output/B3-NOTIOY-TOMEA-ATHINON.csv" id="attikis" ><polygon points="188.149,232.05 186.25,232.95 186.649,233.75 188.351,234.55 186.851,235.85 183.55,237.35 181.55,237.45 181.649,238.25 182.149,240.25 182.05,243.65 184.351,245.75 189.55,243.15 197.55,243.55 197.75,242.35 199.649,240.65 202.351,240.15 202.75,239.35 204.351,238.95 206.649,239.75 206.75,241.25 204.649,242.45 204.45,242.85 205.45,244.15 207.149,244.25 207.95,245.65 210.851,245.65 212.75,248.15 212.75,248.75 213.75,249.85 214.75,251.65 215.25,252.35 216.25,254.15 217.75,253.15 221.55,255.65 222.75,259.35 223.649,258.95 224.05,262.55 225.25,262.95 228.351,263.15 229.45,261.35 228.75,258.55 229.45,257.55 230.05,254.55 228.75,252.35 228.851,251.25 227.351,248.95 228.351,247.75 226.75,245.85 227.75,241.05 225.851,235.35 226.75,233.75 227.75,232.95 228.851,233.55 229.851,231.25 229.149,230.55 229.45,229.55 224.45,224.15 220.05,222.05 209.95,219.35 208.95,226.75 208.95,230.15 207.351,231.45 202.55,232.75 199.649,229.35 196.75,226.85 196.45,225.35 193.649,225.35 192.851,227.35 192.851,229.85 191.45,231.15 188.25,230.05"></polygon></a>
+                                <a href="display-csv.html?param=Csv_Output/A_ANAT_ATTIKHS.csv,Csv_Output/A-ATHINON.csv,Csv_Output/A-PEIRAIOS.csv,Csv_Output/B-DYTIKHS-ATTIKHS.csv,Csv_Output/B-PEIRAIOS.csv,Csv_Output/B1-BOREIOY-TOMEA-ATHINON.csv,Csv_Output/B2-DYTIKOY-TOMEA-ATHINON.csv,Csv_Output/B3-NOTIOY-TOMEA-ATHINON.csv" id="attikis" ><polygon points="188.149,232.05 186.25,232.95 186.649,233.75 188.351,234.55 186.851,235.85 183.55,237.35 181.55,237.45 181.649,238.25 182.149,240.25 182.05,243.65 184.351,245.75 189.55,243.15 197.55,243.55 197.75,242.35 199.649,240.65 202.351,240.15 202.75,239.35 204.351,238.95 206.649,239.75 206.75,241.25 204.649,242.45 204.45,242.85 205.45,244.15 207.149,244.25 207.95,245.65 210.851,245.65 212.75,248.15 212.75,248.75 213.75,249.85 214.75,251.65 215.25,252.35 216.25,254.15 217.75,253.15 221.55,255.65 222.75,259.35 223.649,258.95 224.05,262.55 225.25,262.95 228.351,263.15 229.45,261.35 228.75,258.55 229.45,257.55 230.05,254.55 228.75,252.35 228.851,251.25 227.351,248.95 228.351,247.75 226.75,245.85 227.75,241.05 225.851,235.35 226.75,233.75 227.75,232.95 228.851,233.55 229.851,231.25 229.149,230.55 229.45,229.55 224.45,224.15 220.05,222.05 209.95,219.35 208.95,226.75 208.95,230.15 207.351,231.45 202.55,232.75 199.649,229.35 196.75,226.85 196.45,225.35 193.649,225.35 192.851,227.35 192.851,229.85 191.45,231.15 188.25,230.05">
+
+                                </polygon>
+                                
                                     <polygon points="187.149,266.55 186.55,267.55 186.75,268.65 189.95,269.85 192.149,272.35 195.95,275.25 199.95,275.95 202.95,275.95 198.55,272.75 197.05,272.35 197.45,270.95 195.851,269.65 197.55,266.75 197.75,265.25 195.851,264.15 192.95,265.05 192.351,265.65 194.75,268.65 194.75,270.15 193.75,270.95 188.351,267.35"></polygon>
                                     <polygon points="204.05,242.45 201.55,241.65 198.55,242.95 199.55,243.55 198.351,244.55 198.75,244.65 200.05,244.25 201.95,244.25 200.649,246.15 197.75,246.15 197.55,247.95 199.149,249.35 202.55,248.15 204.149,246.85 204.351,245.65 205.25,245.25 203.95,244.55 204.25,243.15"></polygon>
                                     <polygon points="201.55,284.25 195.25,285.55 197.55,283.65 202.25,281.35 205.649,281.55 201.95,283.45 201.55,284.25"></polygon>
@@ -199,7 +201,7 @@
                                     <polygon points="231.351,261.95 232.75,257.75 233.649,258.95 231.351,264.25"></polygon>
                                     <polygon points="182.75,289.05 181.851,287.35 182.25,286.75 185.149,287.75 184.95,289.05"></polygon>
                                     <polygon points="173.55,357.25 175.55,357.95 178.25,357.95 178.351,354.65 178.55,352.95 180.75,352.45 180.851,351.05 174.75,345.351 174.149,344.351 173.05,342.55 170.75,345.75 170.55,346.851 171.55,347.351 171.649,351.25 171.149,351.65 171.25,354.15 173.45,357.25"></polygon>
-                                    <text  x="199" y="238" fill="white"   font-size="5">Ν.ΑΤΤΙΚΗΣ</text>
+                                    <text  x="199" y="238" fill="white" font-size="5">Ν.ΑΤΤΙΚΗΣ</text>
                                 </a>
                             </g>
                             <g class="poly-group ">

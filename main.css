@@ -83,7 +83,27 @@ body, html {
     width: 50%;
     float: left;
     padding: 20px;
-}  
+} 
+.link-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.link-container a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    width: 200px; /* Adjust width as needed */
+}
+
+.link-container a.btn-primary {
+    background-color: #007bff;
+}
+
 @media (max-width: 768px) {
     .iframe-container  {
         height: 0px; /* Smaller height for smaller devices */
@@ -124,4 +144,5 @@ body, html {
         align-items: center;
     
     }
+    
 }

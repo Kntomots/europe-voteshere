@@ -8,14 +8,9 @@
     <!-- Link to Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-    <script src="https://cdn.jsdelivr.net/npm/three@0.126.1/build/three.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js">
-    </script>
-    <script src="chart.js"></script>
-
-
+    <script src="adminPage.js"></script>
+    <link rel="stylesheet" href="adminPage.css">
+    <link rel="stylesheet" href="user.css">
 
 
     <!-- Custom CSS to keep footer at the bottom -->
@@ -55,33 +50,27 @@
         </nav>
         <!-- Main Content -->
         <div class="main-content float-container">
+            <div id='content' class="">
+                <div id="container" class="card-container">
 
-            <div class=" Welcome-text float-child">
-                <h1>Welcome to Votesphere!</h1>
-                <p style="text-indent:2em">Your premier destination for comprehensive and up-to-date election results
-                    from across Europe. Dive into detailed, interactive data visualizations and
-                    explore the latest election outcomes from each European country. Whether you're
-                    a political analyst, a student of political science, or just curious about European
-                    electoral trends, our site provides you with reliable, real-time information to keep
-                    you informed about the shifting political landscape in Europe. Explore now to discover
-                    the results and understand the dynamics shaping the future of European governance..</p>
-                <canvas id="programmingLanguagesPieChart"></canvas>
-                <div class="link-container">
-                    <a href="map.html" class="btn btn-primary" style="margin-top: 10%;">Show Europe Elections</a>
-                    <a href="AdminLogin.html" class="btn">Admin Login</a>
-    
                 </div>
-              
+            
+            <button id="openModalBtn" class="btn btn-primary">Create Question</button>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeBtn">&times;</span>
+                    <h2>Create New Question</h2>
+                    <div>
+                        <label id="input1">Title</label>
+                        <input type="text" for="input1" id="title" name="input1"><br><br>
+                        <label id="input2">Question</label>
+                        <input type="text" for="input2" id="question" name="input2"><br><br>
+                        <button class="btn btn-success" id="submit1" >Submit</button>
+                    </div>
+                </div>
             </div>
-
-
-
-            <iframe class="iframe-container float-child" src="earth.html"></iframe>
-
-
-
-
-
+        </div>
 
 
 

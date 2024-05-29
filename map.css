@@ -48,12 +48,22 @@ body, html {
 }
 .float-container {
     padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .float-child {
     width: 50%;
     float: left;
     padding: 20px;
+    flex: 1 1 45%; /* Adjust the basis percentage to fit your needs */
+    margin: 10px;
+    min-width: 200px;
+    justify-content: center;
+    align-items: center;
+    
+
 
 } 
 svg path:hover{
@@ -97,12 +107,37 @@ tr:nth-child(even) {
 tr:last-child td {
     border-bottom: none;
 }
+.chart {
+    flex: 1 1 100%;
+    margin: 10px;
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
 
-@media (max-width: 900px) {
-    .float-child {
-        width: 100%;
-        padding: 0px;
+
+
+@media (max-width: 1200px) {
+    .float-container {
+        display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px;
     
     } 
+    .chart{
+        flex: 1 1 45%;
+
+    }
+    .float-child{
+        flex: 1 1 65%; /* Adjust the basis percentage to fit your needs */
+        display: inline;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
 }

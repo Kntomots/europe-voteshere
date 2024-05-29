@@ -47,9 +47,7 @@ $(document).ready(function () {
                     
                     // Set the button text
                     button.innerText ='Partition-' + (i+1) ;
-                    console.log('dasdasdasdasdas'+paramArray[i])
                     button.href = 'display-csv.html?param='+paramArray[i];
-                    console.log('ajdjasd' + button.href)
                     // Optionally, you can add an id or class to the button
                     button.id = 'button' + i;
                     button.className = 'btn btn-primary';
