@@ -87,9 +87,40 @@ document.addEventListener('DOMContentLoaded', async function () {
     var modal = document.getElementById("myModal");
     var btn = document.getElementById("openModalBtn");
     var span = document.getElementsByClassName("closeBtn")[0];
+    var btn_parties = document.createElement('button')
+    var btn_container = document.createElement('div')
+
+    btn_parties.style.display = 'flex'
+    btn_parties.style.width= '50%'
+    btn_parties.justifyContent = 'center'
+    btn_parties.style.float = 'right'
+    btn_parties.className = 'btn btn-primary button-item'
+    btn_parties.innerHTML = 'Go to Parties'
+    btn_container.appendChild(btn_parties)
+
+    btn_parties.addEventListener('click' , function(){
+
+
+
+        window.location.href='parties.html'
+
+
+
+
+    })
+    
+
+   btn.className = 'btn btn-primary button-item'
+    btn_container.appendChild(btn)
+
+    document.getElementById('content').appendChild(btn_container)
+
+
+
 
     btn.onclick = function () {
         modal.style.display = "block";
+
     }
 
     span.onclick = function () {

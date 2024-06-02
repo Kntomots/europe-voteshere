@@ -93,7 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/api/questions')
         .then(response => response.json())
         .then(data => {
-            console.log('Data from MongoDB:', data);
+            console.log('Data from MongoDB:', data.length);
+            if(data.length == 0){
+                alert('Please contact your local admin,no questions available')
+            }else{
             data.forEach((element, index) => {
                 container.appendChild(createCard(element['questionId'], element['question'], index));
             });
@@ -141,11 +144,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const resultDiv = document.createElement('div');
                                 resultDiv.className = 'result-item';
                                 resultDiv.style.padding = '10px';
-                                resultDiv.style.margin = '10px';
-                                resultDiv.style.backgroundColor = 'white'
+                                resultDiv.style.margin = '10px 0'; // Margin on top and bottom
+                                resultDiv.style.backgroundColor = 'white';
                                 resultDiv.style.border = '1px solid #ccc';
                                 resultDiv.style.borderRadius = '5px';
                                 resultDiv.style.textAlign = 'center';
+                                resultDiv.style.width = '100%'; // Full width
+                                resultDiv.style.boxSizing = 'border-box';
 
                                 // Create an element for the party name
                                 const partyNameElem = document.createElement('h4');
@@ -162,12 +167,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                             })
+                            const btn = document.createElement('button')
+                            btn.className = 'btn btn-primary'
+                            btn.style.display = 'block'
+                            btn.innerHTML = 'Go back'
+                            document.getElementById('content').appendChild(btn)
 
+                            btn.addEventListener('click', () => {
+                                window.location.href='user.html'
+                            });
+
+                            document.getElementById('content').style.display = 'flex';
+                            document.getElementById('content').style.flexDirection = 'column';
+                            document.getElementById('content').style.alignItems = 'center';
+                        
+                        
                         });
                 } else {
                     alert('Please answer all questions before submitting.');
                 }
             });
+
+        }/////
         })
         .catch(error => console.error('Error fetching data:', error));
 });

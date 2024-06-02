@@ -35,3 +35,14 @@
     text-decoration: none;
     cursor: pointer;
 }
+.button-container {
+    display: flex;
+    width: 50%;
+    margin-top: 20px; /* Optional: Add some margin for spacing */
+}
+
+.button-item {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
