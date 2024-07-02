@@ -139,5 +139,6 @@ tr:last-child td {
         align-items: center;
         text-align: center;
         padding: 10px;
+        width: 100%;
     }
 }

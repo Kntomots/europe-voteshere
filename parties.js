@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         deleteBtn.className = 'btn btn-danger';
         deleteBtn.innerHTML = 'Delete';
 
-        // Add event listener to handle the delete action
         deleteBtn.addEventListener('click', function () {
             if (confirm('Are you sure you want to delete this party?')) {
                 fetch(`/api/parties/${partyId}`, {
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 })
                 .then(response => {
                     if (response.ok) {
-                        card.remove(); // Remove the card from the DOM
+                        card.remove(); 
                     } else {
                         alert('Failed to delete the party');
                     }
@@ -71,13 +70,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         modal.style.display = "block";
         const div = document.getElementById('test');
         div.className = 'test';
-        div.innerHTML = ''; // Clear any existing content
+        div.innerHTML = ''; 
 
         const questionIdLabel = document.createElement('label');
         questionIdLabel.innerHTML = 'Party Name ';
         const partyNameInput = document.createElement('input');
         partyNameInput.id = 'partyName';
-        partyNameInput.required = true; // Make the party name input required
+        partyNameInput.required = true; 
         div.appendChild(questionIdLabel);
         div.appendChild(partyNameInput);
 
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     inputId.type = 'number';
                     inputId.min = '0';
                     inputId.max = '4';
-                    inputId.required = true; // Make the input required
+                    inputId.required = true; 
                     inputId.addEventListener('input', function () {
                         if (inputId.value < 0) {
                             alert('Based on possible answers we can accept only inputs from 0 to 4');
@@ -169,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         fetch('/api/parties')
             .then(response => response.json())
             .then(data => {
-                container.innerHTML = ''; // Clear the container
+                container.innerHTML = ''; 
                 data.forEach((element, index) => {
                     container.appendChild(createCard(element.party_name, element.Answers, index, element._id));
                 });

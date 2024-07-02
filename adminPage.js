@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const labels = [
-        'Strongly support government intervention (e.g., more regulations, higher taxes on the wealthy)',
-        'Support some government intervention (e.g., moderate regulations, progressive taxes)',
-        'Neutral (e.g., balanced approach between free market and regulation)',
-        'Oppose government intervention (e.g., fewer regulations, lower taxes)',
-        'Strongly oppose government intervention (e.g., minimal regulations, flat taxes)'
+        'Strongly support',
+        'Support',
+        'Neutral',
+        'Oppose ',
+        'Strongly oppose'
     ];
 
     function createCard(title, text, cardIndex) {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         .then(data => {
             console.log('Data from MongoDB:', data);
             data.forEach((element, index) => {
-                container.appendChild(createCard(element.questionId, element.question, index));
+                container.appendChild(createCard(element.questionId, element.questionText, index));
             });
 
             const submitBtn = document.getElementById('submit1');
@@ -156,16 +156,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ questionId, question: questionText }),
+                        body: JSON.stringify({ questionId, questionText }),
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log('eoeoe',data)
-                            const index = container.childElementCount; // Use the current number of cards as the index
-                            container.appendChild(createCard(data.questionId, data.question, index));
-                            title.value = ''; // Clear the input fields after submission
+                            console.log(data)
+                            const index = container.childElementCount; 
+                            container.appendChild(createCard(data.questionId, data.questionText, index));
+                            title.value = ''; 
                             question.value = '';
-                            modal.style.display = 'none'; // Close the modal
+                            modal.style.display = 'none'; 
                         })
                         .catch(error => {
                             console.error('Error adding question:', error);

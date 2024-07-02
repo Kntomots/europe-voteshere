@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const { MongoClient, ObjectId } = require('mongodb');
+
 const app = express();
 const port = 3001;
 
@@ -14,9 +14,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true if using HTTPS
-      httpOnly: true, // Helps prevent XSS
-      sameSite: 'strict' // Adjust as needed ('lax' or 'none' for cross-site cookies)
+        secure: false, // Set to true if using HTTPS
+        httpOnly: true, // Helps prevent XSS
+        sameSite: 'strict' // Adjust as needed ('lax' or 'none' for cross-site cookies)
     }
 }));
 
@@ -26,7 +26,9 @@ const dbName2 = 'Questionaire';
 let db;
 let db2;
 
-MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+
+
+MongoClient.connect(mongoUrl)
     .then(client => {
         db = client.db(dbName);
         db2 = client.db(dbName2);
@@ -74,22 +76,6 @@ app.get('/api/parties', async (req, res) => {
     }
 });
 
-const questionSchema = new mongoose.Schema({
-    questionId: String,
-    questionText: String,
-});
-
-const Question = mongoose.model('Question', questionSchema);
-
-app.get('/api/questions', async (req, res) => {
-    try {
-        const questions = await Question.find();
-        res.json(questions);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
 app.get('/api/admin', async (req, res) => {
     try {
         const collection = db2.collection('Admin');
@@ -115,8 +101,9 @@ async function addQuestionToDatabase(question) {
 
 app.post('/api/questions', async (req, res) => {
     try {
-        const { questionId, question } = req.body;
-        const newQuestion = await addQuestionToDatabase({ questionId, question });
+        const { questionId, questionText } = req.body;
+        console.log(questionId,questionText)
+        const newQuestion = await addQuestionToDatabase({ questionId, questionText });
         res.json(newQuestion);
     } catch (error) {
         console.error('Error in POST /api/questions:', error);
@@ -128,8 +115,7 @@ app.delete('/api/questions/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const collection = db2.collection('Questions');
-        const user = await db2.collection('Questions').findOne({ 'questionId': id });
-        const result = await collection.deleteOne({ _id: user._id });
+        const result = await collection.deleteOne({ questionId: id });
         if (result.deletedCount === 1) {
             res.status(200).json({ message: 'Question deleted successfully' });
         } else {
@@ -140,11 +126,12 @@ app.delete('/api/questions/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to delete question' });
     }
 });
+
 app.delete('/api/parties/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const collection = db2.collection('parties');
-        const result = await collection.deleteOne({ _id: new mongoose.Types.ObjectId(id) });
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
         if (result.deletedCount === 1) {
             res.status(200).json({ message: 'Party deleted successfully' });
         } else {
@@ -161,10 +148,7 @@ app.post('/api/parties', async (req, res) => {
     try {
         const { party_name, Answers } = req.body;
         const collection = db2.collection('parties');
-        const newParty = {
-            party_name,
-            Answers
-        };
+        const newParty = { party_name, Answers };
         const result = await collection.insertOne(newParty);
         res.status(201).json({ ...newParty, _id: result.insertedId });
     } catch (error) {

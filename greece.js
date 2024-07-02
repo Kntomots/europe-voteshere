@@ -4,11 +4,15 @@ $(document).ready(function () {
     function addClickEventListener(link) {
         link.addEventListener('click', function(event) {
             event.preventDefault();
+        
+
            
             const textElement = link.querySelector('text');
             if(textElement ){
                 document.getElementById('tool').innerHTML= textElement.textContent
-                console.log("Text content:", textElement.textContent);      
+                console.log("Text content:", textElement.textContent);
+                document.getElementById('card').scrollIntoView();
+      
                 
             }
                             
@@ -38,7 +42,9 @@ $(document).ready(function () {
                 myDiv.style = 'display:none;'
                 clearDiv(myDiv)
                 if (paramArray.length>1){
-                    document.getElementById('canvasDiv').style.display = 'none'
+                    document.getElementById('mydiv').style.padding = '20px'
+                    const a = document.getElementById('myChart')
+                    clearDiv(a)
 
                    
                     
@@ -91,13 +97,7 @@ $(document).ready(function () {
                 "Ανεξάρτητοι Υποψήφιοι": "#D9D9D9" // Light Silver
             };
 
-            // Destroy previous charts if they exist
-            if (window.barChart) {
-                window.barChart.destroy();
-            }
-            if (window.pieChart) {
-                window.pieChart.destroy();
-            }
+        
 
             $.ajax({
                 url: csvFileName,
@@ -138,48 +138,27 @@ $(document).ready(function () {
                     const sortedValues = sortedEntries.map(entry => parseFloat(entry[1]));
 
                     const sortedColors = sortedKeys.map(key => political_parties[key]);
+                    
+                    const layout = 
+                    {responsive: true
+                    };
 
-                    // Create new bar chart
-                    window.barChart = new Chart("myChart", {
-                        type: "bar",
-                        data: {
-                            labels: sortedKeys,
-                            datasets: [{
-                                backgroundColor: sortedColors,
-                                data: sortedValues
-                            }]
-                        },
-                        options: {
-                            legend: { display: false },
-                            title: {
-                                display: true,
-                                text: ""
-                            }
-                        }
-                    });
-
-                    // Create new pie chart
-                    window.pieChart = new Chart("myChart1", {
-                        type: "pie",
-                        data: {
-                            labels: sortedKeys,
-                            datasets: [{
-                                backgroundColor: sortedColors,
-                                data: sortedValues
-                            }]
-                        },
-                        options: {
-                            title: {
-                                display: true,
-                                responsive: false,
-                                maintainAspectRatio: false,
-                                text: ""
-                            }
-                        }
-                    });
-                    document.getElementById('canvasDiv').style.display = 'block'
+                      var w = window.innerWidth;
+                      console.log(w)
+                      if (w < 460) {
+                        layout.showlegend = false
+                        const data1 = [{ labels:sortedKeys,values: sortedValues, marker: { colors: sortedColors, showscale: false }, type: "pie" }];
+                        Plotly.newPlot("myChart", data1, layout);
+                      } else {
+                        const data1 = [{ labels: sortedKeys, values: sortedValues, marker: { colors: sortedColors, showscale: true }, type: "pie" }];
+                        Plotly.newPlot("myChart", data1, layout);
+                      }
+                    
+                    
                 }
+                
             });
+           
         });
     } 
 

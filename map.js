@@ -49,7 +49,6 @@ const europeanCountries = {
     "Turkey": "https://en.wikipedia.org/wiki/2024_Turkish_local_elections",
     "Ukraine": "https://en.wikipedia.org/wiki/2019_Ukrainian_presidential_election",
     "United Kingdom": "https://en.wikipedia.org/wiki/2019_United_Kingdom_general_election",
-    "Vatican City": ""
 };
 
 
@@ -74,7 +73,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     var percentages = [];
     var parties = [];
-    var seats = [{ party: "", seats: "" }];
 
     document.getElementById('BE').addEventListener('click', function (event) {
         event.stopPropagation();
@@ -104,7 +102,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.log('Data from MongoDB:', data);
                 // Process and display the data as needed
                 data.forEach(d => {
-                    percentages.push(parseFloat(d['percentage']) / 10);
+                    str = (d['percentage'])
+                    let result = str.replace(" %", "").replace(",", ".");;
+
+                    percentages.push(parseFloat(result) );
                     parties.push(d['party']);
 
 
@@ -121,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     }
 
                 });
-                console.log(table);
+            
 
                 // Generate random colors after data is ready
                 var randomColors = getRandomColorCodes(parties.length);
@@ -166,11 +167,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('test1').appendChild(table);
     });
 
+    
     document.addEventListener('click', function (event) {
+        if (event.target.tagName.toLowerCase() === 'path') {
+
         if (event.target.id !== 'BE') {
-            console.log('geiaaaaaaa')
             document.getElementById('test1').style.display = "none";
         }
+    }
     });
 
 
@@ -198,13 +202,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('tool').innerHTML = name;
         });
 
-        path.addEventListener('mousemove', function (event) {
-            // Your mousemove logic here
-        });
-
-        path.addEventListener('mouseleave', function () {
-            // Your mouseleave logic here
-        });
+      
     });
 
 

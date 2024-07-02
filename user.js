@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const labels = [
-        'Strongly support government intervention (e.g., more regulations, higher taxes on the wealthy)',
-        'Support some government intervention (e.g., moderate regulations, progressive taxes)',
-        'Neutral (e.g., balanced approach between free market and regulation)',
-        'Oppose government intervention (e.g., fewer regulations, lower taxes)',
-        'Strongly oppose government intervention (e.g., minimal regulations, flat taxes)'
+        'Strongly support',
+        'Support',
+        'Neutral',
+        'Oppose',
+        'Strongly oppose'
     ];
     function calculateSimilarity(userAnswer, partyAnswer) {
         const maxDifference = 4; // Maximum possible difference (5 - 1)
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Please contact your local admin,no questions available')
             }else{
             data.forEach((element, index) => {
-                container.appendChild(createCard(element['questionId'], element['question'], index));
+                container.appendChild(createCard(element['questionId'], element['questionText'], index));
             });
 
 
